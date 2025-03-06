@@ -15,12 +15,15 @@ const Login = () => {
     try {
       setLoading(true);
       const { data } = await axiosInstance.post("/users/login", values);
+      console.log(data);
+      console.log(data.token);
       setLoading(false);
       message.success("login success");
       localStorage.setItem(
         "user",
         JSON.stringify({ ...data.user, password: "" })
       );
+      localStorage.setItem("token", data.token);
       navigate("/");
     } catch (error) {
       setLoading(false);

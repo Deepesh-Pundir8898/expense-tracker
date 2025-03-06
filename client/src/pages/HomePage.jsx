@@ -76,12 +76,18 @@ const HomePage = () => {
     const getAllTransactions = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
+        const token = localStorage.getItem("token");
+        if (!user || !token) {
+          message.error("Please Login First");
+          return;
+        }
         setLoading(true);
         const res = await axiosInstance.post("/transections/get-transection", {
           userid: user._id,
           frequency,
           selectedDate,
           type,
+          token,
         });
         setAllTransection(res.data);
         setLoading(false);

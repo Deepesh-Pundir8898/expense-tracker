@@ -6,6 +6,7 @@ import {
   deleteTransection,
   getAllTransection,
 } from "../controllers/transection.controller.js";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 //router object
 const transectionRouter = express.Router();

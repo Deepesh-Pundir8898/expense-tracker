@@ -1,4 +1,5 @@
 import { userModel } from "../models/user.model.js";
+import jwt from "jsonwebtoken";
 
 export const userSignup = async (req, res) => {
   try {
@@ -35,10 +36,23 @@ export const userLogin = async (req, res) => {
       });
     }
 
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(400).send({
+        message: "Invalid credentials",
+      });
+    }
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "24h",
+    });
+    res.setHeader("Authorization", `Bearer ${token}`);
+
     res.status(200).send({
       success: true,
       message: "User Login",
       user: user,
+      token: token,
     });
   } catch (error) {
     res.status(400).send({
