@@ -14,7 +14,23 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 // Middleware
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173", // Development origin
+  "https://expense-tracker-1-9j3j.onrender.com", // Production origin
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // If you need to send cookies or authentication headers
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
