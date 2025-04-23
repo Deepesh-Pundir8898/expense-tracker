@@ -9,7 +9,7 @@ import {
 import Layout from "./../components/Layout/Layout";
 import axios from "axios";
 import Spinner from "./../components/Spinner";
-import moment from "moment";
+// import moment from "moment";
 import Analytics from "../components/Analytics";
 import axiosInstance from "./../utils/axiosInstance";
 
@@ -30,7 +30,7 @@ const HomePage = () => {
     {
       title: "Date",
       dataIndex: "date",
-      render: (text) => <span>{moment(text).format("YYYY-MM-DD")}</span>,
+      // render: (text) => <span>{moment(text).format("YYYY-MM-DD")}</span>,
     },
     {
       title: "Amount",
